@@ -6,19 +6,15 @@
       url: "{{ logstash_deb_url }}"
       dest: /home/{{ ansible_user }}
 
-
   - name: Install | install from downloaded deb
     apt:
       deb: /home/{{ ansible_user }}/{{ logstash_deb_filename }}
-
-
 
   - name: Install | enable logstash on boot
     service:
       name: logstash
       state: started
       enabled: yes
-
 
   tags:
     - install
@@ -46,7 +42,6 @@
       remote_src: yes
       src: /home/{{ ansible_user}}/jffi/build/jni/libjffi-1.2.so
       dest: "{{ logstash_dir }}/vendor/jruby/lib/jni/arm-Linux"
-
 
   tags:
     - install
@@ -104,7 +99,6 @@
   - name: Confing | install logstash translate plugin
     shell: ./logstash-plugin install logstash-filter-translate chdir=/usr/share/logstash/bin
 
-
   - name: Config | jvm heap size  min
     lineinfile:
       dest: /etc/logstash/jvm.options
@@ -119,15 +113,12 @@
       state: present
       line: -Xmx256m
 
-
   - name: Install | enable logstash on boot
     service:
       name: logstash
       state: started
       enabled: yes
-
-
-
+      
   tags:
     - configuration
     - logstash
@@ -154,7 +145,6 @@
   when: rpi_type == "rpi2"
   tags:
     - iptables
-
 
 # debug with
 # sudo /usr/share/logstash/bin/logstash  -l /var/log/logstash --path.settings /etc/logstash
