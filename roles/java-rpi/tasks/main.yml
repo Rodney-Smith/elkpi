@@ -15,8 +15,6 @@
     alternatives: name=java path=/usr/lib/jvm/java-8-openjdk-armhf/jre/bin/java
     when: install_type == "openjdk"
 
-
-
   - name: Java | manual download and install
     get_url:
       url: "{{ java8link }}"
@@ -31,22 +29,22 @@
     file:
       state: directory
       path: /opt/jdk/{{ java8link_dirname }}
-    when: install_type == "download-oracle"
+    when: install_type == "openjdk"
 
   - name: Java | unzip/untar to /opt/jdk/jdk-XXX
     unarchive:
       remote_src: yes
       src: /home/{{ ansible_user }}/{{ java8link_filename }}
       dest: /opt/jdk/
-    when: install_type == "download-oracle"
+    when: install_type == "openjdk"
 
   - name: Java | correct java version selected
     alternatives: name=java path=/opt/jdk/{{ java8link_dirname }}/bin/java link=/usr/bin/java
-    when: install_type == "download-oracle"
+    when: install_type == "openjdk"
 
   - name: Java | correct javac version selected
     alternatives: name=javac path=/opt/jdk/{{ java8link_dirname }}/bin/javac link=/usr/bin/javac
-    when: install_type == "download-oracle"
+    when: install_type == "openjdk"
 
   - name: Java | apt oracle-java8-jdk
     apt:
