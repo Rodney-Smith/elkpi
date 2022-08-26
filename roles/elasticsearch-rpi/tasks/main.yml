@@ -34,7 +34,6 @@
   #     state: present
   #     line: -Xmx500m
 
-
   - name: Install | enable elasticsearch on boot
     service:
       name: elasticsearch
@@ -46,7 +45,6 @@
     - elasticsearch
 
 # - block:
-
 
 #   tags:
 #     - configuration
