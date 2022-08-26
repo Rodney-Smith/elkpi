@@ -21,8 +21,6 @@
       update_cache: yes
     when: node_type == "apt"
 
-
-
   - name: Install | download node-arm from herokuapp.com
     get_url:
       url: "http://node-arm.herokuapp.com/node_latest_armhf.deb"
@@ -34,7 +32,6 @@
     apt:
       deb: /home/{{ ansible_user }}/node_latest_armhf.deb
     when: node_type == "arm"
-
 
   - name: Install | download kibana zip file
     get_url:
@@ -103,13 +100,11 @@
   - name: Install | exec npm kibana
     shell:  npm install  chdir=/opt/kibana
 
-
   - name: Service | upload  kibana service files
     template: backup=yes dest=/etc/systemd/system/kibana.service src=kibana.service.j2 owner=root group=root mode=0755
 
   - name: Service | environment file
     template: backup=yes dest=/etc/default/kibana src=default_kibana.j2 owner=root group=root mode=0755
-
 
   - name: Install | enable kibana on boot
     service:
@@ -133,7 +128,6 @@
       line: "server.host: localhost"
       state: absent
       dest: /opt/kibana/config/kibana.yml
-
 
   tags:
     - configuration
